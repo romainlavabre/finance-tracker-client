@@ -1,0 +1,39 @@
+.text-editor ul {
+    list-style-type: disc !important;
+    list-style-position: inside !important;
+}
+
+.text-editor ol {
+    list-style-type: decimal !important;
+    list-style-position: inside !important;
+}
+
+.text-editor ul ul, .text-editor ol ul {
+    list-style-type: circle !important;
+    list-style-position: inside !important;
+    margin-left: 15px !important;
+}
+
+.text-editor ol ol, .text-editor ul ol {
+    list-style-type: lower-latin !important;
+    list-style-position: inside !important;
+    margin-left: 15px !important;
+}
+
+.text-editor p {
+    display: block !important;
+    margin-top: 1em !important;
+    margin-bottom: 1em !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.text-editor a {
+    text-decoration: underline !important;
+    cursor: auto !important;
+    color: #0964b0 !important;
+}
+
+.text-editor {
+    line-height: 10px;
+}

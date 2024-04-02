@@ -1,0 +1,33 @@
+
+.gm-style .gm-style-iw {
+    background-color: #3f3f3f !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 50% !important;
+    height: 100% !important;
+    min-height: 50px !important;
+    padding-top: 10px;
+    padding-bottom: 20px !important;
+    display: block !important;
+    text-align: center;
+}
+
+.gm-style-iw-d {
+    overflow: hidden !important;
+}
+
+.gm-style .gm-style-iw-t::after {
+    background-color: transparent !important;
+}
+
+
+/*style the annoying little arrow at the bottom*/
+.gm-style div div div div div div div div {
+    background-color: #3f3f3f !important;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold !important;
+}

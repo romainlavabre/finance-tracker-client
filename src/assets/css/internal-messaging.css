@@ -1,0 +1,59 @@
+.logo {
+    @apply rounded-full text-lg font-bold flex items-center justify-center;
+}
+
+.logo-a, .logo-k, .logo-t {
+    background: #EF6C00;
+}
+
+.logo-b, .logo-l, .logo-u {
+    background: #33681e;
+}
+
+.logo-c, .logo-m, .logo-v {
+    background: #004c3f;
+}
+
+.logo-d, .logo-n, .logo-w {
+    background: #c0185a;
+}
+
+.logo-e, .logo-o, .logo-x {
+    background: #00887a;
+}
+
+.logo-f, .logo-p, .logo-y {
+    background: #be360c;
+}
+
+.logo-g, .logo-q, .logo-z {
+    background: #679e38;
+}
+
+.logo-h, .logo-r {
+    background: #0096a6;
+}
+
+.logo-i, .logo-s {
+    background: #ea3f79;
+}
+
+.gmail_quote {
+    @apply hidden;
+}
+
+.gmail_signature table tr {
+    border: none !important;
+}
+
+.text-editor #divRplyFwdMsg {
+    display: none;
+}
+
+.text-editor #x_card {
+    display: none;
+}
+
+.text-editor hr[style~="width"] {
+    display: none !important;
+}

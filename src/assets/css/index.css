@@ -1,0 +1,85 @@
+@import "badge.css";
+@import "form.css";
+@import "scrollbar.css";
+@import "button.css";
+@import "table.css";
+@import "gmap.css";
+@import "tutorial.css";
+@import "visio-plus.css";
+@import "internal-messaging.css";
+@import "tooltip.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #000000;
+    color: #AEB1BA;
+    height: 100%;
+    @apply text-gray-300;
+}
+
+fieldset {
+    border: 1px solid #35363d;
+    @apply w-full rounded px-3 p-2;
+}
+
+legend {
+    @apply text-center px-5 py-2 ;
+}
+
+hr {
+    @apply border-gray-600;
+}
+
+.modal {
+    background-color: #1f2937;
+}
+
+.link {
+    @apply text-blue cursor-pointer hover:text-blue-600;
+}
+
+.text-default {
+    color: #131722;
+}
+
+.bg-default {
+    background-color: #131314;
+}
+
+.bg-gray {
+    background: #1E222D;
+}
+
+.border-default {
+    border-color: #50535E;
+}
+
+.text-green {
+    color: #4cae50;
+}
+
+.text-red {
+    color: #EF5350;
+}
+
+.text-blue {
+    color: #1976D2;
+}
+
+.text-yellow {
+    color: #F0E835;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome and Opera */
+}
