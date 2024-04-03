@@ -7,9 +7,9 @@
 }
 
 .input-text {
-    @apply block rounded p-1 flex justify-center text-center border ;
-    background: #131722;
-    border-color: #50535E;
+    @apply block rounded flex justify-center border ;
+    background: #171718;
+    border: none;
 }
 
 .input-text:focus {

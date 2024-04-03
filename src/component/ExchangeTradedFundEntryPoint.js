@@ -1,6 +1,7 @@
 import ArrowTopIcon from "./util/icon/ArrowTopIcon";
 import {useState} from "react";
 import ArrowBottomIcon from "./util/icon/ArrowBottomIcon";
+import ExchangeTradedFundList from "./ExchangeTradedFundList";
 
 export default function () {
     const [isOpen, setOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function () {
                 isOpen
                     ? (
                         <div className="fixed w-full h-full top-9 bg-default">
-                            test
+                            <ExchangeTradedFundList/>
                         </div>
                     )
                     : null

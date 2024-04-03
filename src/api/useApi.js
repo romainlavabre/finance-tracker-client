@@ -13,19 +13,8 @@ export default function useApi() {
     const dispatch = useDispatch();
     const alert = useAlert();
 
-    const findOneBy = async (service, subject, prop, value, role = "sub_admin", consistencyLevel = 1, silent = false) => {
-        let subjectStore = null;
-        let subjectApi = null;
-
-        if (subject.includes("::")) {
-            subjectStore = subject.split("::")[0];
-            subjectApi = subject.split("::")[1];
-        } else {
-            subjectStore = subject;
-            subjectApi = subject;
-        }
-
-        const name = `findOneBy-${service}-${subject}-${prop}-${value}-${role}-${consistencyLevel}`;
+    const findOneBy = async (subject, prop, value, role = "sub_admin", consistencyLevel = 1, silent = false) => {
+        const name = `findOneBy-${subject}-${prop}-${value}-${role}-${consistencyLevel}`;
 
         if (inProgress.includes(name)) {
             return null;
@@ -33,7 +22,7 @@ export default function useApi() {
 
         inProgress.push(name);
 
-        let entity = searchEntity(service, subjectStore, prop, value, state, "findOneBy", consistencyLevel);
+        let entity = searchEntity(subject, prop, value, state, "findOneBy", consistencyLevel);
 
         if (entity !== null) {
             inProgress = inProgress.filter(item => item !== name);
@@ -41,13 +30,12 @@ export default function useApi() {
         }
 
         try {
-            const response = await axios.get(process.env.REACT_APP_API_URL + `/${service}/${subjectApi}/${prop === "id" ? value : `by/${prop.replace(new RegExp('_id$'), '')}/${value}`}`, null);
+            const response = await axios.get(process.env.REACT_APP_API_URL + `/${subject}/${prop === "id" ? value : `by/${prop.replace(new RegExp('_id$'), '')}/${value}`}`, null);
 
             response.data.lastFetchAt = new Date();
 
             dispatch(addOrOverwrite({
-                service: service.replace("service-", "").replace("-", "_"),
-                subject: subjectStore,
+                subject: subject,
                 entity: response.data
             }));
 
@@ -64,19 +52,8 @@ export default function useApi() {
         }
     };
 
-    const findAll = async (service, subject, role = "sub_admin", consistencyLevel = 1, silent = false) => {
-        let subjectStore = null;
-        let subjectApi = null;
-
-        if (subject.includes("::")) {
-            subjectStore = subject.split("::")[0];
-            subjectApi = subject.split("::")[1];
-        } else {
-            subjectStore = subject;
-            subjectApi = subject;
-        }
-
-        const name = `findOneBy-${service}-${subject}-${role}-${consistencyLevel}`;
+    const findAll = async (subject, role = "sub_admin", consistencyLevel = 1, silent = false) => {
+        const name = `findOneBy-${subject}-${role}-${consistencyLevel}`;
 
         if (inProgress.includes(name)) {
             return null;
@@ -84,7 +61,7 @@ export default function useApi() {
 
         inProgress.push(name);
 
-        let entity = searchEntity(service, subjectStore, null, null, state, "findAll", consistencyLevel);
+        let entity = searchEntity(subject, null, null, state, "findAll", consistencyLevel);
 
         if (entity !== null) {
             inProgress = inProgress.filter(item => item !== name);
@@ -92,15 +69,14 @@ export default function useApi() {
         }
 
         try {
-            const response = await axios.get(process.env.REACT_APP_API_URL + `/${service}/${subjectApi}`, null);
+            const response = await axios.get(process.env.REACT_APP_API_URL + `/${subject}`, null);
 
             for (let i = 0; i < response.data.length; i++) {
                 response.data[i].lastFetchAt = new Date();
             }
 
             dispatch(addOrOverwrite({
-                service: service.replace("service-", "").replace("-", "_"),
-                subject: subjectStore,
+                subject: subject,
                 entity: response.data,
                 findAllAt: new Date()
             }));
@@ -118,19 +94,8 @@ export default function useApi() {
         }
     };
 
-    const findAllBy = async (service, subject, prop, value, role = "sub_admin", consistencyLevel = 1, silent = false) => {
-        let subjectStore = null;
-        let subjectApi = null;
-
-        if (subject.includes("::")) {
-            subjectStore = subject.split("::")[0];
-            subjectApi = subject.split("::")[1];
-        } else {
-            subjectStore = subject;
-            subjectApi = subject;
-        }
-
-        const name = `findOneBy-${service}-${subject}-${prop}-${value}-${role}-${consistencyLevel}`;
+    const findAllBy = async (subject, prop, value, role = "sub_admin", consistencyLevel = 1, silent = false) => {
+        const name = `findOneBy-${subject}-${prop}-${value}-${role}-${consistencyLevel}`;
 
         if (inProgress.includes(name)) {
             return null;
@@ -138,7 +103,7 @@ export default function useApi() {
 
         inProgress.push(name);
 
-        let entity = searchEntity(service, subjectStore, prop, value, state, "findAllBy", consistencyLevel);
+        let entity = searchEntity(subject, prop, value, state, "findAllBy", consistencyLevel);
 
         if (entity !== null) {
             inProgress = inProgress.filter(item => item !== name);
@@ -147,15 +112,14 @@ export default function useApi() {
 
         try {
 
-            const response = await axios.get(process.env.REACT_APP_API_URL + `/${service}/${subjectApi}/${prop === "id" ? value : `by/${prop.replace(new RegExp('_id$'), '')}/${value}`}`, null);
+            const response = await axios.get(process.env.REACT_APP_API_URL + `/${subject}/${prop === "id" ? value : `by/${prop.replace(new RegExp('_id$'), '')}/${value}`}`, null);
 
             for (let i = 0; i < response.data.length; i++) {
                 response.data[i].lastFetchAt = new Date();
             }
 
             const payload = {
-                service: service.replace("service-", "").replace("-", "_"),
-                subject: subjectStore,
+                subject: subject,
                 entity: response.data,
                 prop: prop,
                 value: value
@@ -177,43 +141,19 @@ export default function useApi() {
         findOneBy: findOneBy,
         findAll: findAll,
         findAllBy: findAllBy,
-        create: async (service, subject, payload, role = "sub_admin", silent = false) => {
-            let subjectStore = null;
-            let subjectApi = null;
-
-            if (subject.includes("::")) {
-                subjectStore = subject.split("::")[0];
-                subjectApi = subject.split("::")[1];
-            } else {
-                subjectStore = subject;
-                subjectApi = subject;
-            }
-
+        create: async (subject, payload, role = "sub_admin", silent = false) => {
             try {
                 const response = await axios.post(
-                    process.env.REACT_APP_API_URL + `/${service}/${subjectApi}`,
+                    process.env.REACT_APP_API_URL + `/${subject}`,
                     payload,
                     null
                 );
 
                 if (!isNull(response.data.id)) {
-                    if (isNull(window.global.websocketserver?.circuitBreaker)) {
-                        window.global.websocketserver.circuitBreaker = [];
-                    }
-
-                    window.global.websocketserver.circuitBreaker.push(`${subjectApi}-${response.data.id}`);
-
-                    setTimeout(() => {
-                        const index = window.global.websocketserver.circuitBreaker.findIndex(i => i === `${subjectApi}-${response.data.id}`);
-
-                        delete window.global.websocketserver.circuitBreaker[index];
-                    }, 2000);
-
                     response.data.lastFetchAt = new Date();
 
                     dispatch(addOrOverwrite({
-                        service: service.replace("service-", "").replace("-", "_"),
-                        subject: subjectStore,
+                        subject: subject,
                         entity: response.data
                     }));
                 }
@@ -232,49 +172,22 @@ export default function useApi() {
                 return null;
             }
         },
-        update: async (service, subject, id, prop, payload, role = "sub_admin", silent = false) => {
-            let subjectStore = null;
-            let subjectApi = null;
-
-            if (subject.includes("::")) {
-                subjectStore = subject.split("::")[0];
-                subjectApi = subject.split("::")[1];
-            } else {
-                subjectStore = subject;
-                subjectApi = subject;
-            }
-
-
+        update: async (subject, id, prop, payload, role = "sub_admin", silent = false) => {
             try {
                 const response = await axios.patch(
-                    process.env.REACT_APP_API_URL + `/${service}/${subjectApi}/${id}/${prop.replace(new RegExp('_id$'), '')}`,
+                    process.env.REACT_APP_API_URL + `/${subject}/${id}/${prop.replace(new RegExp('_id$'), '')}`,
                     payload,
                     null
                 );
-
-                //findOneBy(service, subject, "id", id, role, 2);
 
                 if (!silent) {
                     alert.launch("OK", "success");
                 }
 
-                if (isNull(window.global.websocketserver?.circuitBreaker)) {
-                    window.global.websocketserver.circuitBreaker = [];
-                }
-
-                window.global.websocketserver.circuitBreaker.push(`${subjectApi}-${id}`);
-
-                setTimeout(() => {
-                    const index = window.global.websocketserver.circuitBreaker.findIndex(i => i === `${subjectApi}-${id}`);
-
-                    delete window.global.websocketserver.circuitBreaker[index];
-                }, 2000);
-
                 response.data.lastFetchAt = new Date();
 
                 dispatch(addOrOverwrite({
-                    service: service.replace("service-", "").replace("-", "_"),
-                    subject: subjectStore,
+                    subject: subject,
                     entity: response.data
                 }));
 
@@ -289,24 +202,12 @@ export default function useApi() {
                 return false;
             }
         },
-        remove: async (service, subject, id, role = "sub_admin", silent = false) => {
-            let subjectStore = null;
-            let subjectApi = null;
-
-            if (subject.includes("::")) {
-                subjectStore = subject.split("::")[0];
-                subjectApi = subject.split("::")[1];
-            } else {
-                subjectStore = subject;
-                subjectApi = subject;
-            }
-
+        remove: async (subject, id, role = "sub_admin", silent = false) => {
             try {
-                await axios.delete(process.env.REACT_APP_API_URL + `/${service}/${subjectApi}/${id}`, null);
+                await axios.delete(process.env.REACT_APP_API_URL + `/${subject}/${id}`, null);
 
                 dispatch(remove({
-                    service: service.replace("service-", "").replace("-", "_"),
-                    subject: subjectStore,
+                    subject: subject,
                     id: id
                 }));
 
@@ -323,14 +224,12 @@ export default function useApi() {
     }
 }
 
-function searchEntity(service, subject, prop, value, state, method = "findOneBy", consistencyLevel = 1) {
+function searchEntity(subject, prop, value, state, method = "findOneBy", consistencyLevel = 1) {
     if (parseInt(consistencyLevel) === 2) {
         return null;
     }
 
-    service = service.replace("service-", "").replace("-", "_");
-
-    if (isNull(state.api?.[service]?.[subject])) {
+    if (isNull(state.api?.[subject])) {
         return null;
     }
 
@@ -338,12 +237,12 @@ function searchEntity(service, subject, prop, value, state, method = "findOneBy"
 
     if (value !== null) {
         if (method.startsWith("findOne")) {
-            result = state.api[service][subject].values.find(item => item !== undefined && item[prop] == value);
+            result = state.api[subject].values.find(item => item !== undefined && item[prop] == value);
         } else {
-            result = state.api[service][subject].values.filter(item => item !== undefined && item[prop] == value);
+            result = state.api[subject].values.filter(item => item !== undefined && item[prop] == value);
         }
     } else {
-        result = state.api[service][subject].values;
+        result = state.api[subject].values;
     }
 
     if (isNull(result) || result.length === 0) {
@@ -355,12 +254,12 @@ function searchEntity(service, subject, prop, value, state, method = "findOneBy"
     }
 
     if (method === "findOneBy") {
-        if (new Date().getTime() / 1000 - result.lastFetchAt.getTime() / 1000 > config[service][subject].cacheLifeTime) {
+        if (new Date().getTime() / 1000 - result.lastFetchAt.getTime() / 1000 > config[subject].cacheLifeTime) {
             return null;
         }
     } else if (method === "findAll") {
-        if (!isNull(state.api[service][subject].metadata.findAllAt)
-            && new Date().getTime() / 1000 - state.api[service][subject].metadata.findAllAt.getTime() / 1000 > config[service][subject].cacheLifeTimeFindAll) {
+        if (!isNull(state.api[subject].metadata.findAllAt)
+            && new Date().getTime() / 1000 - state.api[subject].metadata.findAllAt.getTime() / 1000 > config[subject].cacheLifeTimeFindAll) {
             return null;
         }
 
@@ -369,13 +268,13 @@ function searchEntity(service, subject, prop, value, state, method = "findOneBy"
                 continue;
             }
 
-            if (new Date().getTime() / 1000 - result[i].lastFetchAt.getTime() / 1000 > config[service][subject].cacheLifeTime) {
+            if (new Date().getTime() / 1000 - result[i].lastFetchAt.getTime() / 1000 > config[subject].cacheLifeTime) {
                 return null;
             }
         }
     } else if (method === "findAllBy") {
-        if (!isNull(state.api[service][subject].metadata[`findAllBy-${prop}`])
-            && new Date().getTime() / 1000 - state.api[service][subject].metadata[`findAllBy-${prop}`].getTime() / 1000 > config[service][subject][`cacheLifeTimeFindAllBy_${prop}`]) {
+        if (!isNull(state.api[subject].metadata[`findAllBy-${prop}`])
+            && new Date().getTime() / 1000 - state.api[subject].metadata[`findAllBy-${prop}`].getTime() / 1000 > config[subject][`cacheLifeTimeFindAllBy_${prop}`]) {
             return null;
         }
 
@@ -384,7 +283,7 @@ function searchEntity(service, subject, prop, value, state, method = "findOneBy"
                 continue;
             }
 
-            if (new Date().getTime() / 1000 - result[i].lastFetchAt.getTime() / 1000 > config[service][subject].cacheLifeTime) {
+            if (new Date().getTime() / 1000 - result[i].lastFetchAt.getTime() / 1000 > config[subject].cacheLifeTime) {
                 return null;
             }
         }

@@ -23,7 +23,7 @@ export default function ({
     const callSuccess = useRef(false);
 
     useEffect(() => {
-        findOneBy(!service.startsWith("service-") ? `service-${service}` : service, subject, searchByProp, id, role);
+        findOneBy(subject, searchByProp, id, role);
     }, []);
 
     useEffect(() => {
@@ -57,7 +57,7 @@ export default function ({
         }
 
 
-        const result = await update(!service.startsWith("service-") ? `service-${service}` : service, subject, subjectEntity.id, field.name, payload, role);
+        const result = await update(subject, subjectEntity.id, field.name, payload, role);
 
         if (result && !isNull(onSuccess)) {
             callSuccess.current = true;
@@ -78,7 +78,7 @@ export default function ({
 
         payload.uploaded_file[subject.replace(regex, replaceBy) + "_" + field.name] = file;
 
-        const result = await update(!service.startsWith("service-") ? `service-${service}` : service, subject, subjectEntity.id, field.name, payload, role);
+        const result = await update(subject, subjectEntity.id, field.name, payload, role);
 
         if (result && !isNull(onSuccess)) {
             onSuccess();
