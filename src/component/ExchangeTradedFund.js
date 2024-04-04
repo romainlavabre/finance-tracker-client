@@ -15,7 +15,7 @@ import CreateAnnuallyYield from "./annually-yield/Create";
 import AnnuallyYieldList from "./annually-yield/AnnuallyYieldList";
 import CumulativeYield from "./cumulative-yield/CumulativeYield";
 
-export default function ({id}) {
+export default function ({id, onBack}) {
     const {findOneBy, update} = useApi();
     const exchangeTradedFund = useSelector(state => state.api.exchange_traded_funds?.values?.[id]);
     const [updateField, setUpdateField] = useState(null);
@@ -38,7 +38,7 @@ export default function ({id}) {
 
     return (
         <div>
-            <div>
+            <div onClick={onBack} className="cursor-pointer">
                 <ArrowLeftIcon size={6}/>
             </div>
             <div className="mt-5 px-5">

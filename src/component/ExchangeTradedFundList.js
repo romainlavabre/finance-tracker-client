@@ -18,7 +18,7 @@ export default function () {
 
     if (isNull(exchangeTradedFunds)) return null;
 
-    if (!isNull(selected)) return <ExchangeTradedFund key={selected} id={selected}/>;
+    if (!isNull(selected)) return <ExchangeTradedFund key={selected} id={selected} onBack={() => setSelected(null)}/>;
 
     return (
         <>
