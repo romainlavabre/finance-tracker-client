@@ -8,6 +8,9 @@ import getRiskBadge from "../mixin/badge/getRiskBadge";
 import Create from "./country/Create";
 import CreateCountryDistribution from "./country/distribution/Create";
 import CountryDistributionList from "./country/distribution/CountryDistributionList";
+import CreateSector from "./sector/Create";
+import CreateSectorDistribution from "./sector/distribution/Create";
+import SectorDistributionList from "./sector/distribution/SectorDistributionList";
 
 export default function ({id}) {
     const {findOneBy, update} = useApi();
@@ -185,6 +188,12 @@ export default function ({id}) {
                     <fieldset className="col-span-1">
                         <legend>Sector distribution</legend>
 
+                        <CreateSector/>
+                        <hr className="mt-3 mb-5"/>
+
+                        <CreateSectorDistribution exchangeTradedFundId={id}/>
+
+                        <SectorDistributionList exchangeTradedFundId={id}/>
                     </fieldset>
                 </div>
             </div>
