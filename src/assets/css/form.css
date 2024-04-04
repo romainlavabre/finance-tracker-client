@@ -7,7 +7,7 @@
 }
 
 .input-text {
-    @apply block rounded flex justify-center border ;
+    @apply block rounded flex justify-center border w-48;
     background: #171718;
     border: none;
 }
@@ -26,7 +26,7 @@
 }
 
 .input-select {
-    @apply input-text py-5 w-48 h-8;
+    @apply input-text w-48 h-6;
 }
 
 .form-submit {

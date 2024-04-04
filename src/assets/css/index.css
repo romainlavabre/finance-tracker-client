@@ -22,7 +22,7 @@ body {
 
 fieldset {
     border: 1px solid #35363d;
-    @apply w-full rounded px-3 p-2;
+    @apply w-full px-3 p-2;
 }
 
 legend {
@@ -30,7 +30,7 @@ legend {
 }
 
 hr {
-    @apply border-gray-600;
+    border-color: #35363d;
 }
 
 .modal {
@@ -54,7 +54,7 @@ hr {
 }
 
 .border-default {
-    border-color: #50535E;
+    border-color: #131314;
 }
 
 .text-green {

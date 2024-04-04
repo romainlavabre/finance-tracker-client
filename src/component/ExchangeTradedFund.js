@@ -5,6 +5,9 @@ import isNull from "../mixin/global/isNull";
 import ArrowLeftIcon from "./util/icon/ArrowLeftIcon";
 import priceFormatter from "../mixin/global/priceFormatter";
 import getRiskBadge from "../mixin/badge/getRiskBadge";
+import Create from "./country/Create";
+import CreateCountryDistribution from "./country/distribution/Create";
+import CountryDistributionList from "./country/distribution/CountryDistributionList";
 
 export default function ({id}) {
     const {findOneBy, update} = useApi();
@@ -160,7 +163,29 @@ export default function ({id}) {
                             </tr>
                             </tbody>
                         </table>
+
+                        <fieldset>
+                            <legend>Annually yield</legend>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Cumulative yield</legend>
+                        </fieldset>
                     </div>
+                    <fieldset className="col-span-1">
+                        <legend>Country distribution</legend>
+
+                        <Create/>
+                        <hr className="mt-3 mb-5"/>
+
+                        <CreateCountryDistribution exchangeTradedFundId={id}/>
+
+                        <CountryDistributionList exchangeTradedFundId={id}/>
+                    </fieldset>
+                    <fieldset className="col-span-1">
+                        <legend>Sector distribution</legend>
+
+                    </fieldset>
                 </div>
             </div>
         </div>

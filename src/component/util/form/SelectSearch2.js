@@ -142,7 +142,7 @@ export default function ({
     return (
         <div className="w-full relative bg-default">
             <div
-                className=" block p-0 border border-gray-700 text-center rounded"
+                className=" block p-0 text-center rounded"
                 style={{wordBreak: "break-all", minHeight: "33px"}}
                 onFocus={() => setShowResult(true)}
             >
