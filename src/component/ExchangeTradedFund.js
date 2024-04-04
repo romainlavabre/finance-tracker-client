@@ -11,6 +11,8 @@ import CountryDistributionList from "./country/distribution/CountryDistributionL
 import CreateSector from "./sector/Create";
 import CreateSectorDistribution from "./sector/distribution/Create";
 import SectorDistributionList from "./sector/distribution/SectorDistributionList";
+import CreateAnnuallyYield from "./annually-yield/Create";
+import AnnuallyYieldList from "./annually-yield/AnnuallyYieldList";
 
 export default function ({id}) {
     const {findOneBy, update} = useApi();
@@ -169,6 +171,11 @@ export default function ({id}) {
 
                         <fieldset>
                             <legend>Annually yield</legend>
+
+                            <CreateAnnuallyYield exchangeTradedFundId={id}/>
+                            <hr className="mt-3 mb-5"/>
+
+                            <AnnuallyYieldList exchangeTradedFundId={id}/>
                         </fieldset>
 
                         <fieldset>
