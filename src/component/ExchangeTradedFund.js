@@ -13,6 +13,7 @@ import CreateSectorDistribution from "./sector/distribution/Create";
 import SectorDistributionList from "./sector/distribution/SectorDistributionList";
 import CreateAnnuallyYield from "./annually-yield/Create";
 import AnnuallyYieldList from "./annually-yield/AnnuallyYieldList";
+import CumulativeYield from "./cumulative-yield/CumulativeYield";
 
 export default function ({id}) {
     const {findOneBy, update} = useApi();
@@ -180,6 +181,8 @@ export default function ({id}) {
 
                         <fieldset>
                             <legend>Cumulative yield</legend>
+
+                            <CumulativeYield exchangeTradedFundId={id}/>
                         </fieldset>
                     </div>
                     <fieldset className="col-span-1">
