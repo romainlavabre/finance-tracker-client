@@ -83,7 +83,7 @@ export default function () {
                     }}
                 />
             </div>
-            <h1 className="absolute bottom-0 w-full">Cumulative Yield</h1>
+            <h1 className="absolute bottom-0 w-full">Cumulative Yield (Acc)</h1>
         </div>
     );
 }
