@@ -83,3 +83,7 @@ hr {
     /* Non-prefixed version, currently
                                      supported by Chrome and Opera */
 }
+
+.bottom-button {
+    @apply mx-3 bg-default px-2 pt-2 cursor-pointer hover:bg-gray-900;
+}

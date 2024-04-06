@@ -2,6 +2,8 @@ import ArrowTopIcon from "./util/icon/ArrowTopIcon";
 import {useState} from "react";
 import ArrowBottomIcon from "./util/icon/ArrowBottomIcon";
 import ExchangeTradedFundList from "./ExchangeTradedFundList";
+import BottomBar from "./BottomBar";
+import Portfolio from "./statistic/Portfolio";
 
 export default function () {
     const [isOpen, setOpen] = useState(false);
@@ -22,12 +24,15 @@ export default function () {
             {
                 isOpen
                     ? (
-                        <div className="fixed w-full h-full top-9 bg-default">
+                        <div className="fixed w-full h-full top-9 bg-default z-50">
                             <ExchangeTradedFundList/>
                         </div>
                     )
                     : null
             }
+            <Portfolio/>
+
+            <BottomBar/>
         </>
     )
 }
