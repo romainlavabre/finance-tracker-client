@@ -6,9 +6,12 @@ import isNull from "../../mixin/global/isNull";
 import CheckIcon from "../util/icon/CheckIcon";
 import {LocalDate} from "@js-joda/core";
 import SelectSearch2 from "../util/form/SelectSearch2";
+import event from "../../event/event";
+import useEventDispatcher from "../../use/useEventDispatcher";
 
 
 export default function ({exchangeTradedFundId}) {
+    const eventDispatcher = useEventDispatcher();
     const {findAllBy, create} = useApi();
     const annuallyYields = useSelector(state => state.api.annually_yields?.values?.filter(annuallyYield => annuallyYield?.exchange_traded_fund_id == exchangeTradedFundId));
     const [years, setYears] = useState([]);
@@ -27,6 +30,10 @@ export default function ({exchangeTradedFundId}) {
         const result = [];
 
         for (let i = 2010; i <= current; i++) {
+            if (!isNull(annuallyYields.find(annuallyYield => annuallyYield.year === i))) {
+                continue;
+            }
+
             result.push({
                 key: i,
                 value: i
@@ -46,6 +53,7 @@ export default function ({exchangeTradedFundId}) {
         });
 
         if (typeof id === "number") {
+            eventDispatcher.launcher(event.UPDATE, null);
             yearInput.current.value = null;
             yieldInput.current.value = 0;
 

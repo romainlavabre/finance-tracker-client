@@ -2,8 +2,11 @@ import useApi from "../../api/useApi";
 import {useSelector} from "react-redux";
 import {useEffect} from "react";
 import isNull from "../../mixin/global/isNull";
+import useEventDispatcher from "../../use/useEventDispatcher";
+import event from "../../event/event";
 
 export default function ({exchangeTradedFundId}) {
+    const eventDispatcher = useEventDispatcher();
     const {findOneBy, create, update} = useApi();
     const cumulativeYield = useSelector(state => state.api.cumulative_yields?.values?.find(cumulativeYield => cumulativeYield?.exchange_traded_fund_id == exchangeTradedFundId));
 
@@ -33,13 +36,15 @@ export default function ({exchangeTradedFundId}) {
                         type="number"
                         step="0.01"
                         defaultValue={cumulativeYield.to_ten_year}
-                        onKeyDown={e => {
+                        onKeyDown={async e => {
                             if (e.key === "Enter") {
-                                update("cumulative_yields", cumulativeYield.id, "to_ten_year", {
+                                await update("cumulative_yields", cumulativeYield.id, "to_ten_year", {
                                     cumulative_yield: {
                                         to_ten_year: e.target.value
                                     }
-                                })
+                                });
+
+                                eventDispatcher.launcher(event.UPDATE, null);
                             }
                         }}
                     />
@@ -56,13 +61,15 @@ export default function ({exchangeTradedFundId}) {
                         type="number"
                         step="0.01"
                         defaultValue={cumulativeYield.to_five_year}
-                        onKeyDown={e => {
+                        onKeyDown={async e => {
                             if (e.key === "Enter") {
-                                update("cumulative_yields", cumulativeYield.id, "to_five_year", {
+                                await update("cumulative_yields", cumulativeYield.id, "to_five_year", {
                                     cumulative_yield: {
                                         to_five_year: e.target.value
                                     }
-                                })
+                                });
+
+                                eventDispatcher.launcher(event.UPDATE, null);
                             }
                         }}
                     />
@@ -79,13 +86,15 @@ export default function ({exchangeTradedFundId}) {
                         type="number"
                         step="0.01"
                         defaultValue={cumulativeYield.to_three_year}
-                        onKeyDown={e => {
+                        onKeyDown={async e => {
                             if (e.key === "Enter") {
-                                update("cumulative_yields", cumulativeYield.id, "to_three_year", {
+                                await update("cumulative_yields", cumulativeYield.id, "to_three_year", {
                                     cumulative_yield: {
                                         to_three_year: e.target.value
                                     }
-                                })
+                                });
+
+                                eventDispatcher.launcher(event.UPDATE, null);
                             }
                         }}
                     />
@@ -102,13 +111,15 @@ export default function ({exchangeTradedFundId}) {
                         type="number"
                         step="0.01"
                         defaultValue={cumulativeYield.to_one_year}
-                        onKeyDown={e => {
+                        onKeyDown={async e => {
                             if (e.key === "Enter") {
-                                update("cumulative_yields", cumulativeYield.id, "to_one_year", {
+                                await update("cumulative_yields", cumulativeYield.id, "to_one_year", {
                                     cumulative_yield: {
                                         to_one_year: e.target.value
                                     }
-                                })
+                                });
+
+                                eventDispatcher.launcher(event.UPDATE, null);
                             }
                         }}
                     />
@@ -125,13 +136,15 @@ export default function ({exchangeTradedFundId}) {
                         type="number"
                         step="0.01"
                         defaultValue={cumulativeYield.since_creation}
-                        onKeyDown={e => {
+                        onKeyDown={async e => {
                             if (e.key === "Enter") {
-                                update("cumulative_yields", cumulativeYield.id, "since_creation", {
+                                await update("cumulative_yields", cumulativeYield.id, "since_creation", {
                                     cumulative_yield: {
                                         since_creation: e.target.value
                                     }
-                                })
+                                });
+
+                                eventDispatcher.launcher(event.UPDATE, null);
                             }
                         }}
                     />

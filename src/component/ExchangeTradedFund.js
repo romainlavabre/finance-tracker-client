@@ -14,11 +14,14 @@ import SectorDistributionList from "./sector/distribution/SectorDistributionList
 import CreateAnnuallyYield from "./annually-yield/Create";
 import AnnuallyYieldList from "./annually-yield/AnnuallyYieldList";
 import CumulativeYield from "./cumulative-yield/CumulativeYield";
+import uuid from "../mixin/global/uuid";
 
 export default function ({id, onBack}) {
     const {findOneBy, update} = useApi();
     const exchangeTradedFund = useSelector(state => state.api.exchange_traded_funds?.values?.[id]);
     const [updateField, setUpdateField] = useState(null);
+    const [reloadCountryDistribution, setReloadCountryDistribution] = useState(uuid());
+    const [reloadSectorDistribution, setReloadSectorDistribution] = useState(uuid());
 
     useEffect(() => {
         findOneBy("exchange_traded_funds", "id", id);
@@ -188,20 +191,20 @@ export default function ({id, onBack}) {
                     <fieldset className="col-span-1">
                         <legend>Country distribution</legend>
 
-                        <Create/>
+                        <Create onCreated={() => setReloadCountryDistribution(uuid())}/>
                         <hr className="mt-3 mb-5"/>
 
-                        <CreateCountryDistribution exchangeTradedFundId={id}/>
+                        <CreateCountryDistribution key={reloadCountryDistribution} exchangeTradedFundId={id}/>
 
                         <CountryDistributionList exchangeTradedFundId={id}/>
                     </fieldset>
                     <fieldset className="col-span-1">
                         <legend>Sector distribution</legend>
 
-                        <CreateSector/>
+                        <CreateSector onCreated={() => setReloadSectorDistribution(uuid())}/>
                         <hr className="mt-3 mb-5"/>
 
-                        <CreateSectorDistribution exchangeTradedFundId={id}/>
+                        <CreateSectorDistribution key={reloadSectorDistribution} exchangeTradedFundId={id}/>
 
                         <SectorDistributionList exchangeTradedFundId={id}/>
                     </fieldset>

@@ -4,8 +4,8 @@ import ExchangeTradedFundEntryPoint from "../component/ExchangeTradedFundEntryPo
 export default function Entrypoint() {
 
     return (
-        <>
+        <div className="overflow-hidden">
             <ExchangeTradedFundEntryPoint/>
-        </>
+        </div>
     );
 }

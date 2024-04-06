@@ -2,7 +2,7 @@ import useApi from "../../api/useApi";
 import {useRef} from "react";
 import CheckIcon from "../util/icon/CheckIcon";
 
-export default function () {
+export default function ({onCreated}) {
     const {create} = useApi();
     const nameInput = useRef();
 
@@ -14,6 +14,7 @@ export default function () {
         });
 
         if (typeof id === "number") {
+            onCreated();
             nameInput.current.value = null;
         }
     }

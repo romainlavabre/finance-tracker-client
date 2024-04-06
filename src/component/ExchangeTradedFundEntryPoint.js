@@ -1,12 +1,21 @@
 import ArrowTopIcon from "./util/icon/ArrowTopIcon";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ArrowBottomIcon from "./util/icon/ArrowBottomIcon";
 import ExchangeTradedFundList from "./ExchangeTradedFundList";
 import BottomBar from "./BottomBar";
 import Portfolio from "./statistic/Portfolio";
+import uuid from "../mixin/global/uuid";
+import useEventDispatcher from "../use/useEventDispatcher";
+import event from "../event/event";
 
 export default function () {
+    const eventDispatcher = useEventDispatcher();
     const [isOpen, setOpen] = useState(false);
+    const [reload, setReload] = useState(uuid());
+
+    useEffect(() => {
+        eventDispatcher.subscribe(event.UPDATE, () => setReload(uuid()));
+    }, []);
 
     return (
         <>
@@ -24,13 +33,13 @@ export default function () {
             {
                 isOpen
                     ? (
-                        <div className="fixed w-full h-full top-9 bg-default z-50">
-                            <ExchangeTradedFundList/>
+                        <div className="fixed w-full h-full top-0 bg-default z-50 overflow-y-auto">
+                            <ExchangeTradedFundList onClose={() => setOpen(false)}/>
                         </div>
                     )
                     : null
             }
-            <Portfolio/>
+            <Portfolio key={reload}/>
 
             <BottomBar/>
         </>

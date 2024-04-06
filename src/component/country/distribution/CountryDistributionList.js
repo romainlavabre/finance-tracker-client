@@ -2,8 +2,11 @@ import useApi from "../../../api/useApi";
 import {useEffect} from "react";
 import {useSelector} from "react-redux";
 import isNull from "../../../mixin/global/isNull";
+import useEventDispatcher from "../../../use/useEventDispatcher";
+import event from "../../../event/event";
 
 export default function ({exchangeTradedFundId}) {
+    const eventDispatcher = useEventDispatcher();
     const {findAllBy, update} = useApi();
     const countryDistributions = useSelector(state => state.api.country_distributions?.values?.filter(countryDistribution => countryDistribution?.exchange_traded_fund_id == exchangeTradedFundId));
 
@@ -25,13 +28,15 @@ export default function ({exchangeTradedFundId}) {
                                 type="number"
                                 step="0.01"
                                 defaultValue={countryDistribution.weight}
-                                onKeyDown={e => {
+                                onKeyDown={async e => {
                                     if (e.key === "Enter") {
-                                        update("country_distributions", countryDistribution.id, "weight", {
+                                        await update("country_distributions", countryDistribution.id, "weight", {
                                             country_distribution: {
                                                 weight: e.target.value
                                             }
-                                        })
+                                        });
+
+                                        eventDispatcher.launcher(event.UPDATE, null);
                                     }
                                 }}
                             />

@@ -9,6 +9,7 @@ import uuid from "../../../mixin/global/uuid";
 export default function ({exchangeTradedFundId}) {
     const {findAll, create} = useApi();
     const countries = useSelector(state => state.api.countries?.values?.filter(country => !isNull(country)));
+    const countryDistributions = useSelector(state => state.api.country_distributions?.values?.filter(countryDistribution => countryDistribution?.exchange_traded_fund_id == exchangeTradedFundId));
     const [reload, setReload] = useState(uuid());
     const countryIdInput = useRef();
     const weightInput = useRef();
@@ -34,13 +35,13 @@ export default function ({exchangeTradedFundId}) {
         }
     }
 
-    if (isNull(countries)) return null;
+    if (isNull(countries) || isNull(countryDistributions)) return null;
 
     return (
         <div key={reload} className="flex justify-around" title="Add new country distribution">
             <div className="w-48">
                 <SelectSearch2
-                    items={countries}
+                    items={countries.filter(country => isNull(countryDistributions.find(countryDistribution => countryDistribution.country_name === country.name)))}
                     index={"id"}
                     value={"name"}
                     reference={countryIdInput}

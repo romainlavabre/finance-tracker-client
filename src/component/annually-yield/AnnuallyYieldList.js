@@ -2,8 +2,11 @@ import {useEffect} from "react";
 import {useSelector} from "react-redux";
 import useApi from "../../api/useApi";
 import isNull from "../../mixin/global/isNull";
+import useEventDispatcher from "../../use/useEventDispatcher";
+import event from "../../event/event";
 
 export default function ({exchangeTradedFundId}) {
+    const eventDispatcher = useEventDispatcher();
     const {findAllBy, update} = useApi();
     const annuallyYields = useSelector(state => state.api.annually_yields?.values?.filter(annuallyYield => annuallyYield?.exchange_traded_fund_id == exchangeTradedFundId));
 
@@ -25,13 +28,15 @@ export default function ({exchangeTradedFundId}) {
                                 type="number"
                                 step="0.01"
                                 defaultValue={annuallyYield.yield}
-                                onKeyDown={e => {
+                                onKeyDown={async e => {
                                     if (e.key === "Enter") {
-                                        update("annually_yields", annuallyYield.id, "yield", {
+                                        await update("annually_yields", annuallyYield.id, "yield", {
                                             annually_yield: {
                                                 yield: e.target.value
                                             }
-                                        })
+                                        });
+
+                                        eventDispatcher.launcher(event.UPDATE, null);
                                     }
                                 }}
                             />

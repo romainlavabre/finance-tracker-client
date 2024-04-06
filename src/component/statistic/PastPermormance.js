@@ -46,11 +46,11 @@ export default function () {
             <div className="">
                 <Chart
                     data={{
-                        labels: pastPermormance.map(cd => cd.year),
+                        labels: pastPermormance.sort((a, b) => a.year - b.year).map(cd => cd.year),
                         datasets: [
                             {
                                 type: "line",
-                                data: pastPermormance.map(rd => rd.weight),
+                                data: pastPermormance.sort((a, b) => a.year - b.year).map(rd => rd.weight),
                                 borderColor: "#2563eb",
                                 tension: 0.3,
                                 hoverOffset: 4,

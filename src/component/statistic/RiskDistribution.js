@@ -80,14 +80,20 @@ export default function () {
                                 color: "white",
                                 anchor: 'end',
                                 align: 'end',
-                                formatter: data => {
-                                    return riskDistribution.find(rd => rd.weight === data).risk;
-                                },
+                                formatter: (val, ctx) => (ctx.chart.data.labels[ctx.dataIndex]),
                                 font: {
                                     weight: 'bold'
                                 },
                             },
                         },
+                        layout: {
+                            padding: {
+                                left: 10,
+                                right: 10,
+                                top: 20,
+                                bottom: 20
+                            }
+                        }
                     }}
                 />
             </div>

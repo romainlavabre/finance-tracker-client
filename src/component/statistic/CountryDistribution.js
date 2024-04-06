@@ -24,7 +24,7 @@ export default function () {
     }, []);
 
     const fetch = async () => {
-        setCountryDistribution((await api.statistic.countryDistribution()).filter(cd => cd.weight > 0));
+        setCountryDistribution((await api.statistic.countryDistribution())?.filter(cd => cd.weight > 0));
     }
 
     ChartJS.register(...registerables);
@@ -78,9 +78,7 @@ export default function () {
                                 color: "white",
                                 anchor: 'end',
                                 align: 'end',
-                                formatter: data => {
-                                    return countryDistribution.find(rd => rd.weight === data).country.substring(0, 1) + countryDistribution.find(rd => rd.weight === data).country.substring(1).toLowerCase();
-                                },
+                                formatter: (val, ctx) => (ctx.chart.data.labels[ctx.dataIndex]),
                                 font: {
                                     weight: 'bold'
                                 },
@@ -91,7 +89,7 @@ export default function () {
                                 left: 20,
                                 right: 20,
                                 top: 20,
-                                bottom: 20
+                                bottom: 30
                             }
                         }
                     }}

@@ -53,9 +53,18 @@ export default function () {
                                 borderColor: "none",
                                 backgroundColor: [
                                     "#ca8a04",
+                                    "#a21caf",
                                     "#16a34a",
                                     "#ea580c",
-                                    "#dc2626"
+                                    "#db2777",
+                                    "#65a30d",
+                                    "#dc2626",
+                                    "#059669",
+                                    "#6d28d9",
+                                    "#e11d48",
+                                    "#0d9488",
+                                    "#65a30d",
+                                    "#475569"
                                 ],
                                 hoverOffset: 4,
                             },
@@ -69,9 +78,7 @@ export default function () {
                                 color: "white",
                                 anchor: 'end',
                                 align: 'end',
-                                formatter: data => {
-                                    return continentDistribution.find(rd => rd.weight === data).continent;
-                                },
+                                formatter: (val, ctx) => (ctx.chart.data.labels[ctx.dataIndex]),
                                 font: {
                                     weight: 'bold'
                                 },
