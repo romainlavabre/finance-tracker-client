@@ -8,5 +8,12 @@ export default {
     countries: {
         cacheLifeTime: 5,
         cacheLifeTimeFindAll: 5
+    },
+    annually_yields: {
+        cacheLifeTime: 5,
+        cacheLifeTimeFindAllBy_exchange_traded_fund_id: 5
+    },
+    cumulative_yields: {
+        cacheLifeTime: 5,
     }
 }

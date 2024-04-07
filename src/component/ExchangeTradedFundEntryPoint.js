@@ -8,12 +8,13 @@ import uuid from "../mixin/global/uuid";
 import useEventDispatcher from "../use/useEventDispatcher";
 import event from "../event/event";
 import LongTermeReturn from "./long-term-return/LongTermeReturn";
+import Compare from "./compare/Compare";
 
 export default function () {
     const eventDispatcher = useEventDispatcher();
     const [isOpen, setOpen] = useState(false);
     const [reload, setReload] = useState(uuid());
-    const [section, setSection] = useState(0);
+    const [section, setSection] = useState(2);
 
     useEffect(() => {
         eventDispatcher.subscribe(event.UPDATE, () => setReload(uuid()));
@@ -51,6 +52,12 @@ export default function () {
             {
                 section === 1
                     ? <LongTermeReturn/>
+                    : null
+            }
+
+            {
+                section === 2
+                    ? <Compare/>
                     : null
             }
 
