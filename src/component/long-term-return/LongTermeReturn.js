@@ -5,6 +5,7 @@ import uuid from "../../mixin/global/uuid";
 import database from "../../database/database";
 import isNull from "../../mixin/global/isNull";
 import TrashIcon from "../util/icon/TrashIcon";
+import ResultAsChart from "./ResultAsChart";
 
 export default function () {
     const nameInput = useRef();
@@ -26,18 +27,21 @@ export default function () {
         const now = ZonedDateTime.now().year();
         const stopPaymentAt = (now + parseInt(numberOfYearOfPaymentInput.current.value)) - 1
         let currentCapital = parseFloat(startingCapitalInput.current.value);
+        let cumulativePayment = 0;
 
         for (let i = now; i < now + parseInt(numberOfYearInput.current.value); i++) {
             const yieldL = (currentCapital * ((parseFloat(annualYieldInput.current.value) / 100) + 1)) - currentCapital;
-
+            const payment = (i > stopPaymentAt ? 0 : parseFloat(annualPaymentInput.current.value));
             currentCapital += yieldL;
-            currentCapital += (i > stopPaymentAt ? 0 : parseFloat(annualPaymentInput.current.value));
+            currentCapital += payment;
+            cumulativePayment += payment;
 
             res.push({
                 year: i,
                 total: currentCapital,
                 payment: (i > stopPaymentAt ? 0 : parseFloat(annualPaymentInput.current.value)),
-                yield: yieldL
+                yield: yieldL,
+                cumulativePayment: cumulativePayment
             })
         }
 
@@ -156,6 +160,9 @@ export default function () {
                 </div>
                 <div className="col-span-6 bg-default rounded p-5">
                     <ResultAsArray key={reload} result={result}/>
+                </div>
+                <div className="col-span-12 bg-default rounded p-5">
+                    <ResultAsChart key={reload} result={result}/>
                 </div>
             </div>
         </div>
