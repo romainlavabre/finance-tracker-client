@@ -60,7 +60,6 @@ export default function ({result}) {
                                 tension: 0.2,
                                 hoverOffset: 4,
                                 fill: true,
-                                fillColor: "#dc2626",
                                 backgroundColor: "rgba(220,38,38,0.06)",
                                 fillOpacity: 0.8,
                             }

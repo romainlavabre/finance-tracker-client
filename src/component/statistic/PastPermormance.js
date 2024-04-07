@@ -19,25 +19,10 @@ import priceFormatter from "../../mixin/global/priceFormatter";
 
 export default function () {
     const [pastPermormance, setPastPermormance] = useState(null);
-    const [average, setAverage] = useState(null);
 
     useEffect(() => {
         fetch();
     }, []);
-
-    useEffect(() => {
-        if (isNull(pastPermormance)) return;
-
-        let total = 0;
-
-        pastPermormance.forEach(pp => total += pp.weight);
-
-        const avg = [];
-
-        pastPermormance.forEach(pp => avg.push(total / pastPermormance.length));
-
-        setAverage(avg);
-    }, [pastPermormance]);
 
     const fetch = async () => {
         setPastPermormance((await api.statistic.pastPerformance()));
@@ -54,7 +39,7 @@ export default function () {
     ChartJS.register(Legend);
     ChartJS.register(Tooltip);
 
-    if (isNull(pastPermormance) || isNull(average)) return null;
+    if (isNull(pastPermormance)) return null;
 
     return (
         <div className="relative bg-default h-full text-center rounded py-2">
@@ -69,17 +54,7 @@ export default function () {
                                 borderColor: "#2563eb",
                                 tension: 0.3,
                                 hoverOffset: 4,
-                            },
-                            {
-                                type: "line",
-                                data: average,
-                                borderColor: "#dc2626",
-                                hoverOffset: 4,
-                                label: "Average",
-                                showLine: true,
-                                showPoint: false,
-                                order: 1
-                            },
+                            }
                         ],
                     }}
                     options={{

@@ -20,6 +20,7 @@ export default function () {
 
     useEffect(() => {
         loadSavedPattern();
+        process();
     }, []);
 
     const process = () => {

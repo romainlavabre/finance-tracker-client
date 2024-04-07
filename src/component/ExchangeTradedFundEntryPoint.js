@@ -13,7 +13,7 @@ export default function () {
     const eventDispatcher = useEventDispatcher();
     const [isOpen, setOpen] = useState(false);
     const [reload, setReload] = useState(uuid());
-    const [section, setSection] = useState(1);
+    const [section, setSection] = useState(0);
 
     useEffect(() => {
         eventDispatcher.subscribe(event.UPDATE, () => setReload(uuid()));

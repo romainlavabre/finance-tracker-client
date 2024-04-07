@@ -8,6 +8,8 @@ import ProviderDistribution from "./ProviderDistribution";
 import SectorDistribution from "./SectorDistribution";
 import PastPermormance from "./PastPermormance";
 import CumulativeYield from "./CumulativeYield";
+import TargetDist from "./TargetDist";
+import TargetAcc from "./TargetAcc";
 
 export default function () {
     return (
@@ -19,10 +21,16 @@ export default function () {
                 <div className="col-span-2 row-span-2">
                     <AveragePricing/>
                 </div>
-                <div className="col-span-5 row-span-4">
+                <div className="col-span-2 row-span-2">
+                    <TargetDist/>
+                </div>
+                <div className="col-span-2 row-span-2">
+                    <TargetAcc/>
+                </div>
+                <div className="col-span-4 row-span-4">
                     <ProviderDistribution/>
                 </div>
-                <div className="col-span-5 row-span-4">
+                <div className="col-span-6 row-span-4">
                     <ExchangeTradedFundDistribution/>
                 </div>
             </div>
