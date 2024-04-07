@@ -1,6 +1,13 @@
-export default function (value) {
+export default function (value, useIntl = false) {
     if (value === null || value === undefined) {
         return;
+    }
+
+    if (useIntl) {
+        return Intl.NumberFormat("fr-FR", {
+            style: "currency",
+            currency: "EUR",
+        }).format(value);
     }
 
     value = value.toString();

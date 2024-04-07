@@ -7,11 +7,13 @@ import Portfolio from "./statistic/Portfolio";
 import uuid from "../mixin/global/uuid";
 import useEventDispatcher from "../use/useEventDispatcher";
 import event from "../event/event";
+import LongTermeReturn from "./long-term-return/LongTermeReturn";
 
 export default function () {
     const eventDispatcher = useEventDispatcher();
     const [isOpen, setOpen] = useState(false);
     const [reload, setReload] = useState(uuid());
+    const [section, setSection] = useState(0);
 
     useEffect(() => {
         eventDispatcher.subscribe(event.UPDATE, () => setReload(uuid()));
@@ -39,9 +41,21 @@ export default function () {
                     )
                     : null
             }
-            <Portfolio key={reload}/>
 
-            <BottomBar/>
+            {
+                section === 0
+                    ? <Portfolio key={reload}/>
+                    : null
+            }
+
+            {
+                section === 1
+                    ? <LongTermeReturn/>
+                    : null
+            }
+
+
+            <BottomBar onSelected={setSection}/>
         </>
     )
 }

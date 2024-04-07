@@ -56,7 +56,6 @@ export default function () {
 
     if (isNull(pastPermormance) || isNull(average)) return null;
 
-    console.log(average)
     return (
         <div className="relative bg-default h-full text-center rounded py-2">
             <div className="">

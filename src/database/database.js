@@ -1,4 +1,5 @@
 export default {
+    TABLE_LONG_TERM_RETURN: "TABLE_LONG_TERM_RETURN",
     read(table, key) {
         const current = this.getCurrent(table);
 
