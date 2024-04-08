@@ -15,5 +15,9 @@ export default {
     },
     cumulative_yields: {
         cacheLifeTime: 5,
+    },
+    sectors: {
+        cacheLifeTime: 5,
+        cacheLifeTimeFindAll: 5,
     }
 }

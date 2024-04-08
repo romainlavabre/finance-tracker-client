@@ -24,7 +24,7 @@ export default function ({exchangeTradedFundId}) {
     }, []);
 
     useEffect(() => {
-        if (isNull(annuallyYields)) return;
+        if (isNull(annuallyYields) || years.length > 0) return;
 
         const current = LocalDate.now().year();
         const result = [];
@@ -54,6 +54,7 @@ export default function ({exchangeTradedFundId}) {
 
         if (typeof id === "number") {
             eventDispatcher.launcher(event.UPDATE, null);
+            setYears([]);
             yearInput.current.value = null;
             yieldInput.current.value = 0;
 
